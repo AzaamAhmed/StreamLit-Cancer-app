@@ -413,7 +413,8 @@ def main():
         to predict benign vs. malignant tumors with 97.5% accuracy.
         """)
     with header_col2:
-        st.image("https://img.icons8.com/color/96/000000/breast-cancer.png", width=80)
+        st.image("https://media.istockphoto.com/id/850146656/vector/pink-ribbon-in-minimalistic-flat-style-breast-cancer-awareness-symbol-isolated-on-white.jpg?s=612x612&w=0&k=20&c=nPxigD3ExvQYp0JSB7LekC9YL_0LA1PKM-SRQhWNkkg=",
+                 width=150, use_column_width=True, caption="Breast Cancer Awareness Ribbon")
     
     # Main content with tabs
     tab1, tab2, tab3 = st.tabs(["🔍 Prediction", "📊 Analysis", "ℹ️ About"])
