@@ -131,30 +131,30 @@ def add_predictions(input_data):
     try:
         model = pickle.load(open("model/model.pkl", "rb"))
         scaler = pickle.load(open("model/scaler.pkl", "rb"))
+
+        input_array = np.array(list(input_data.values())).reshape(1, -1)
+        input_array_scaled = scaler.transform(input_array)
+
+        prediction = model.predict(input_array_scaled)
+        proba = model.predict_proba(input_array_scaled)
+
+        st.subheader("Cell Cluster Prediction")
+        if prediction[0] == 0:
+            st.success("✅ The cell cluster is **Benign**")
+        else:
+            st.error("⚠️ The cell cluster is **Malignant**")
+
+        st.write(f"**Probability of being Benign:** {proba[0][0]:.2f}")
+        st.write(f"**Probability of being Malignant:** {proba[0][1]:.2f}")
+
+        # Save to session state
+        if "history" not in st.session_state:
+            st.session_state.history = []
+
+        st.session_state.history.append({**input_data, "Prediction": "Benign" if prediction[0] == 0 else "Malignant"})
     except FileNotFoundError:
         st.error("Model or scaler file not found. Make sure 'model.pkl' and 'scaler.pkl' are in 'model/' folder.")
         st.stop()
-
-    input_array = np.array(list(input_data.values())).reshape(1, -1)
-    input_array_scaled = scaler.transform(input_array)
-
-    prediction = model.predict(input_array_scaled)
-    proba = model.predict_proba(input_array_scaled)
-
-    st.subheader("Cell Cluster Prediction")
-    if prediction[0] == 0:
-        st.success("✅ The cell cluster is **Benign**")
-    else:
-        st.error("⚠️ The cell cluster is **Malignant**")
-
-    st.write(f"**Probability of being Benign:** {proba[0][0]:.2f}")
-    st.write(f"**Probability of being Malignant:** {proba[0][1]:.2f}")
-
-    # Save to session state
-    if "history" not in st.session_state:
-        st.session_state.history = []
-
-    st.session_state.history.append({**input_data, "Prediction": "Benign" if prediction[0] == 0 else "Malignant"})
 
 
 # ---------------------- Main App ------------------------
@@ -199,13 +199,14 @@ def main():
         st.dataframe(history_df.tail(5))
 
     # Footer
+    st.markdown("---")
     st.markdown("""
-        <hr style="border-top: 1px solid #bbb;">
-        <p style="text-align:center; font-size: 14px;">
-            Built with ❤️ by Azaam | Powered by Scikit-Learn, Plotly, and Streamlit.
-        </p>
+    <div style="text-align: center; color: #7f8c8d; font-size: 0.9em;">
+        <p>Developed for educational purposes | Not for clinical use | v1.2.0</p>
+        <p>© 2023 Breast Cancer Predictor | <a href="#" style="color: #7f8c8d;">Terms</a> | 
+        <a href="#" style="color: #7f8c8d;">Privacy</a></p>
+    </div>
     """, unsafe_allow_html=True)
-
 
 if __name__ == '__main__':
     main()
