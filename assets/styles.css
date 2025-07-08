@@ -1,0 +1,33 @@
+/* Card container */
+.css-j5r0tf {
+    padding: 2rem;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #6a85b6 0%, #bac8e0 100%);
+    box-shadow: 0 4px 24px rgba(30, 42, 73, 0.15);
+    transition: box-shadow 0.3s;
+}
+
+/* Diagnosis badge base */
+.diagnosis {
+    color: #fff;
+    padding: 0.4em 1em;
+    border-radius: 1em;
+    font-weight: 600;
+    font-size: 1.1em;
+    letter-spacing: 0.03em;
+    box-shadow: 0 2px 8px rgba(30, 42, 73, 0.08);
+    display: inline-block;
+    margin-top: 0.5em;
+}
+
+/* Benign badge: vibrant green */
+.diagnosis.benign {
+    background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+    color: #1b3c2e;
+}
+
+/* Malignant badge: vibrant red */
+.diagnosis.malicious {
+    background: linear-gradient(90deg, #ff5858 0%, #f09819 100%);
+    color: #fff;
+}
